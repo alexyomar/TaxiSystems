@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Log On";
+}
+<div data-role="page" id="login" data-theme="a">
+    <div data-role="header">
+        @Html.Partial("PartialHeader")
+        <h2>
+            Iniciar Sesión</h2>
+    </div>
+    <!-- /header -->
+    <div data-role="content">
+        @using (Html.BeginForm("LogOn", "Account"))
+        {
+          
+            <fieldset>
+                <div data-role="fieldcontain" @*class="ui-hide-label"*@>
+                    <label for="UserName">
+                        Nombre de Usuario:</label>
+                    <input type="text" name="UserName" id="UserName" value="" placeholder="ej. anamaria15" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="Password">
+                        Contraseña:</label>
+                    <input type="password" name="Password" id="Password" value="" placeholder="ej. ana1234" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="RememberMe">
+                        Recordarme?:</label>
+                    <select name="RememberMe" id="RememberMe" data-role="slider">
+                        <option value="off">no</option>
+                        <option value="on">si</option>
+                    </select>
+                </div>
+                <div data-role="controlgroup">
+                    <button type="submit" data-theme="b" name="submit" value="submit-value">
+                        Aceptar</button>
+                    <button type="button" data-theme="a" name="submit" value="submit-value" onclick="javascript:history.back(1);">
+                        Cancelar</button>
+                </div>
+                <fieldset class="ui-grid-a">
+                    <button type="button" data-theme="a" name="submit" value="submit-value" id="forgot">
+                        Olvidé mi contraseña</button>
+                </fieldset>
+            </fieldset>
+            if (ViewBag.Error != null)
+            {
+            <h4 class="error" style="text-align: center">
+                @ViewBag.Error</h4>
+            }
+        }
+    </div>
+    <div data-role="footer" data-theme="d">
+        @Html.Partial("PartialFooter")
+    </div>
+</div>
+<script language="javascript">
+
+    $("#forgot").click(function () { 
+        window.top.location = @Url.Action("Olvido", "Account");
+    });
+
+</script>

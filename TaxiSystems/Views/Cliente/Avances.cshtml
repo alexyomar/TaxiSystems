@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TaxiSystems.Controllers.Avance>
+{ ViewBag.Title = "Avances"; Layout = "~/Views/Shared/_Layout.cshtml"; }
+<div data-role="page" id="start">
+    <div data-role="header">
+        @Html.Partial("PartialHeader")
+    </div>
+    <div data-role="content">
+        <h2>
+            Avances</h2>
+        <a href="@Url.Action("EditarAvance", "Cliente")" data-role="button" data-icon="add">Nuevo</a>
+        <br />
+        <ul data-role="listview" data-filter="true">
+            @foreach (var item in Model)
+            {
+                
+                <li>
+                    <h2>
+                        C.I.: @item.Cedula</h2>
+                    <h3>
+                        @item.Nombre
+                    </h3>
+                    <p>@item.TelefonoCasa / @item.TelefonoMovil</p>
+                    <p>
+                        <strong>
+                            @item.Unidad.Marca @item.Unidad.Modelo (@item.Unidad.Placa)</strong></p>
+                    <p class="ui-li-aside">
+                        <a href="@Url.Action("EditarAvance", "Cliente", new { Id = item.UserID })" data-icon="gear" data-iconpos="right" data-role="button" 
+                            data-theme="a">Editar</a>
+                        @if (item.aspnet_Membership.IsApproved)
+                        {
+                            <a href="@Url.Action("ActivarAvance", "Cliente", new { Id = item.UserID, r = new Random().Next() })" data-icon="gear" data-iconpos="right" data-role="button" 
+                            data-theme="e">Disponible</a>
+                        }
+                        else
+                        { 
+                            <a href="@Url.Action("ActivarAvance", "Cliente", new { Id = item.UserID, r = new Random().Next() })" data-icon="gear" data-iconpos="right" data-role="button" data-theme="d">
+                                Ocupado</a>
+                          
+                        }
+                    </p>
+                </li>
+            }
+        </ul>
+        <br />
+        <br />
+        <div data-role="controlgroup">
+            <a href="@Url.Action("Index", "Cliente")" data-role="button" data-icon="forward">Volver</a>
+        </div>
+    </div>
+    <div data-role="footer" data-theme="d">
+        @Html.Partial("PartialFooter")
+    </div>
+</div>

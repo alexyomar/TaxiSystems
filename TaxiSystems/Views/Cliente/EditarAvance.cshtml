@@ -1,0 +1,178 @@
+﻿@model TaxiSystems.Controllers.Avance
+@{
+    ViewBag.Title = "EditarAvance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+        
+}
+<div data-role="page" id="register" data-theme="a">
+    <div data-role="header">
+        @Html.Partial("PartialHeader")
+        <h2>
+            Editar Avance</h2>
+    </div>
+    <!-- /header -->
+    <div data-role="content">
+        @if (Model != null)
+            {
+                using (Html.BeginForm("EditarAvance", "Cliente"))
+                {
+            <input type="hidden" name="UserID" value="@Model.UserID" />
+            <fieldset>
+                <div data-role="fieldcontain" @*class="ui-hide-label"*@>
+                    <label for="UserName">
+                        Nombre de Usuario:</label>
+                    <input type="text" name="UserName" id="UserName" value="@(Model.aspnet_Membership.aspnet_User.LoweredUserName ?? "")" placeholder="ej. anamaria15" disabled="true" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="Email">
+                        E-mail:</label>
+                    <input type="text" name="Email" id="Email" value="@Model.aspnet_Membership.LoweredEmail" placeholder="ej. anamaria15@gmail.com" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="Password">
+                        Contraseña Anterior:</label>
+                    <input type="password" name="OldPassword" id="OldPassword" value="" placeholder="Debe ser mayor a 6 caracteres" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="Password">
+                        Contraseña:</label>
+                    <input type="password" name="Password" id="Password" value="" placeholder="Debe ser mayor a 6 caracteres" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="ConfirmPassword">
+                        Confirme la contraseña:</label>
+                    <input type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Indique de nuevo su contraseña" />
+                </div>
+                <div data-role="fieldcontain" @*class="ui-hide-label"*@>
+                    <label for="UserName">
+                        Nombre y Apellido:</label>
+                    <input type="text" name="Nombre" id="Nombre" value="@Model.Nombre" placeholder="ej. Ana Maria Morales" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="Direccion">
+                        Dirección:</label>
+                    <input type="text" name="Direccion" id="Direccion" placeholder="ej. Ave. Juan Bimba, Edf. Don Pancho" value="@Model.Direccion" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="TelefonoCasa">
+                        Telefono:</label>
+                    <input type="text" name="TelefonoCasa" id="TelefonoCasa" placeholder="ej. 02125555555" value="@Model.TelefonoCasa" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="TelefonoMovil">
+                        Celular:</label>
+                    <input type="text" name="TelefonoMovil" id="TelefonoMovil" placeholder="ej. 04125555555" value="@Model.TelefonoMovil" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="Unidad" class="select">
+                        Unidad:</label>
+                    <select name="Unidad" id="Unidad" data-native-menu="false">
+                        <option>Seleccione:</option>
+                        @foreach (TaxiSystems.Controllers.Unidad item in (List<TaxiSystems.Controllers.Unidad>)ViewBag.Unidad)
+                        {
+
+                            <option value="@item.Id" @(Model.IdUnidad == item.Id ? "selected='selected'" : "") >
+                                (@item.Placa) @item.Marca @item.Modelo</option>
+                        }
+                    </select>
+                </div>
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <button type="submit" data-theme="b" name="submit" value="submit-value">
+                            Registrarse</button>
+                    </div>
+                    <div class="ui-block-b">
+                        <button type="button" data-theme="a" name="submit" value="submit-value" onclick="javascript:history.back(1);">
+                            Cancelar</button>
+                    </div>
+                </fieldset>
+            </fieldset>
+                }
+            }
+            else
+            {
+                using (Html.BeginForm("EditarAvance", "Cliente"))
+                {
+            <fieldset>
+                <div data-role="fieldcontain" @*class="ui-hide-label"*@>
+                    <label for="UserName">
+                        Nombre de Usuario:</label>
+                    <input type="text" name="UserName" id="UserName" placeholder="ej. anamaria15"  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="Email">
+                        E-mail:</label>
+                    <input type="text" name="Email" id="Email" placeholder="ej. anamaria15@gmail.com" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="Password">
+                        Contraseña:</label>
+                    <input type="password" name="Password" id="Password" value="" placeholder="Debe ser mayor a 6 caracteres" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="ConfirmPassword">
+                        Confirme la contraseña:</label>
+                    <input type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Indique de nuevo su contraseña" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="Cedula">
+                        Cédula:</label>
+                    <input type="text" name="Cedula" id="Cedula" placeholder="ej. 17302339" />
+                </div>
+                <div data-role="fieldcontain" @*class="ui-hide-label"*@>
+                    <label for="UserName">
+                        Nombre y Apellido:</label>
+                    <input type="text" name="Nombre" id="Nombre" placeholder="ej. Ana Maria Morales" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="Direccion">
+                        Dirección:</label>
+                    <input type="text" name="Direccion" id="Direccion" placeholder="ej. Ave. Juan Bimba, Edf. Don Pancho" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="TelefonoCasa">
+                        Telefono:</label>
+                    <input type="text" name="TelefonoCasa" id="TelefonoCasa" placeholder="ej. 02125555555" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="TelefonoMovil">
+                        Celular:</label>
+                    <input type="text" name="TelefonoMovil" id="TelefonoMovil" placeholder="ej. 04125555555" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="Unidad" class="select">
+                        Unidad:</label>
+                    <select name="Unidad" id="Unidad" data-native-menu="false">
+                        <option>Seleccione:</option>
+                        @foreach (TaxiSystems.Controllers.Unidad item in (List<TaxiSystems.Controllers.Unidad>)ViewBag.Unidad)
+                        {
+
+                            <option value="@item.Id">(@item.Placa) @item.Marca @item.Modelo</option>
+                        }
+                    </select>
+                </div>
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <button type="submit" data-theme="b" name="submit" value="submit-value">
+                            Registrarse</button>
+                    </div>
+                    <div class="ui-block-b">
+                        <button type="button" data-theme="a" name="submit" value="submit-value" onclick="javascript:history.back(1);">
+                            Cancelar</button>
+                    </div>
+                </fieldset>
+            </fieldset>
+                }
+            }
+        @if (ViewBag.Error != null)
+        {
+
+            <h4 class="error" style="text-align: center">
+                @ViewBag.Error</h4>
+        }
+    </div>
+    <div data-role="footer" data-theme="d">
+        @Html.Partial("PartialFooter")
+    </div>
+</div>

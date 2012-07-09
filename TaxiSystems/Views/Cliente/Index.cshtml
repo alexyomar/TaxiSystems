@@ -1,0 +1,74 @@
+﻿@model TaxiSystems.Controllers.Usuario 
+@{
+    ViewBag.Title = "Index";}
+<div data-role="page" id="start">
+    <div data-role="header">
+        @Html.Partial("PartialHeader")
+    </div>
+    <!-- /header -->
+    <div data-role="content">
+        @if (Model == null)
+        {   
+
+            <h2>
+                Bienvenido Administrador.</h2>
+            
+
+            <p>
+                Actualmente disponemos de @ViewBag.Disponibilidad unidades.
+            </p>
+        
+        }
+        else
+        {
+
+            <h2>
+                Bienvenido @Model.Nombre (@User.Identity.Name)</h2>
+            
+
+            <p>
+                Actualmente disponemos de @ViewBag.Disponibilidad unidades.
+            </p>
+        
+        }
+        ¿Qué deseas hacer?</h3>
+        <div data-role="controlgroup">
+            @if (Model == null)
+            {
+                <a href="@Url.Action("Rutas", "Cliente")" data-icon="grid" data-role="button">Rutas</a>      
+                <a href="@Url.Action("Unidades", "Cliente")" data-icon="grid" data-role="button">Unidades
+                </a>
+                <a href="@Url.Action("Avances", "Cliente")" data-icon="grid" data-role="button">Avances
+                </a>
+                    
+            }
+            else
+            {
+                if (ViewBag.Disponibilidad > 0)
+                {
+                
+
+                <a href="@Url.Action("PedirTaxi", "Cliente")" data-icon="search" data-role="button">
+                    Pedir un taxi</a>
+                }
+                else
+                { 
+                
+
+                <a href="#" data-role="button" data-icon="alert" data-theme="e">No hay taxis disponibles
+                    en este momento</a>
+                }
+
+                <a href="@Url.Action("Historial", "Cliente")" data-icon="grid" data-role="button">Ver
+                    mis solicitudes anteriores</a>
+                <a href="@Url.Action("PartialRegister", "Account", new { Id = Model.UserID })" data-icon="grid" data-role="button">
+                    Mis datos</a>
+            }
+        </div>
+        <a href="@Url.Action("Index", "Home")" data-icon="gear" data-role="button"  data-theme="e">
+            Cerrar sesión</a>
+    </div>
+    <div data-role="footer" data-theme="d">
+        @Html.Partial("PartialFooter")
+    </div>
+</div>

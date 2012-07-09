@@ -1,0 +1,59 @@
+﻿@model TaxiSystems.Controllers.Unidad
+@{
+    ViewBag.Title = "EditUnidades";
+}
+<div data-role="page" id="register" data-theme="a">
+    <div data-role="header">
+        @Html.Partial("PartialHeader")
+        <h2>
+            Editar Avance</h2>
+    </div>
+    <!-- /header -->
+    <div data-role="content">
+        @using (Html.BeginForm("EditUnidades", "Cliente"))
+        {
+            <fieldset>
+                <div data-role="fieldcontain" @*class="ui-hide-label"*@>
+                    <label for="Modelo">
+                        Modelo:</label>
+                    <input type="text" name="Modelo" id="Modelo" placeholder="ej. Corsa" />
+                </div>
+                <div data-role="fieldcontain" @*class="ui-hide-label"*@>
+                    <label for="Marca">
+                        Marca:</label>
+                    <input type="text" name="Marca" id="Marca" placeholder="ej. Chevrolet" />
+                </div>
+                <div data-role="fieldcontain" @*class="ui-hide-label"*@>
+                    <label for="Placa">
+                        Placas:</label>
+                    <input type="text" name="Placa" id="Placa" placeholder="ej. XMB-675" />
+                </div>
+                <div data-role="fieldcontain" @*class="ui-hide-label"*@>
+                    <label for="Placa">
+                        Año:</label>
+                    <input type="text" name="Anno" id="Anno" placeholder="ej. 2001" />
+                </div>
+            </fieldset>
+            
+            <fieldset class="ui-grid-a">
+                <div class="ui-block-a">
+                    <button type="submit" data-theme="b" name="submit" value="submit-value">
+                        Crear</button>
+                </div>
+                <div class="ui-block-b">
+                    <button type="button" data-theme="a" name="submit" value="submit-value" onclick="javascript:history.back(1);">
+                        Cancelar</button>
+                </div>
+            </fieldset>
+        }
+        @if (ViewBag.Error != null)
+        {
+
+            <h4 class="error" style="text-align: center">
+                @ViewBag.Error</h4>
+        }
+    </div>
+    <div data-role="footer" data-theme="d">
+        @Html.Partial("PartialFooter")
+    </div>
+</div>

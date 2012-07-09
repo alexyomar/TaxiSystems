@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TaxiSystems.Controllers.Carrera>
+@{
+    ViewBag.Title = "Rutas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div data-role="page" id="start">
+    <div data-role="header">
+        @Html.Partial("PartialHeader")
+    </div>
+    <div data-role="content">
+        <h2>
+            Taxis en Rutas</h2>
+        <ul data-role="listview" data-filter="true">
+            @foreach (var item in Model)
+            {
+                <li data-role="list-divider">@item.FechaPedido.ToShortDateString()</li>
+                <li>
+                    <h3>
+                        @item.DireccionDestino (@item.Zona.Zona1)
+                    </h3>
+                    <p>
+                        @item.FechaCompletado</p>
+                    <br />
+                    <p>
+                        <strong>Dirección de recogida:</strong> @item.DireccionOrigen (@item.Zona1.Zona1)
+                    </p>
+                    <p>
+                        @item.FechaAsignacion</p>
+                    <p class="ui-li-aside">
+                        @if (item.FechaCompletado == null)
+                        {
+                            <form action="@Url.Action("Rutas", "Cliente")" id="@item.Id" method="post">
+                            <strong>
+                                <input type="hidden" name="Id" id="Id" value="@item.Id" />
+                                <input type="submit" data-role="submit" data-icon="check" data-iconpos="right" data-mini="true"
+                                    data-inline="true" data-theme="a" value="Finalizar" /></strong>
+                            </form>
+                        }
+                        else
+                        {
+                           
+                            <span>Finalizado:</span><br />
+                            <span>@item.FechaCompletado </span>
+                        }
+                    </p>
+                </li>
+            }
+        </ul>
+        <br />
+        <br />
+        <div data-role="controlgroup">
+            <a href="@Url.Action("Index", "Cliente")" data-role="button" data-icon="forward">Volver</a>
+        </div>
+    </div>
+    <div data-role="footer" data-theme="d">
+        @Html.Partial("PartialFooter")
+    </div>
+</div>

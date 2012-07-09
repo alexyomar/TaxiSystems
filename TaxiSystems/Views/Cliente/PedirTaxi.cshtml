@@ -1,0 +1,153 @@
+﻿@using System.Data.Linq
+@model TaxiSystems.Controllers.Unidad
+@{
+    ViewBag.Title = "Pedir taxi | Los Dinamicos";
+}
+@using (Html.BeginForm("PedirTaxiHandler", "Cliente"))
+{
+    <div data-role="page" id="start">
+        <div data-role="header">
+            @Html.Partial("PartialHeader")
+        </div>
+        <!-- /header -->
+        <div data-role="content">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#start" class="ui-btn-active ui-state-persist" data-iconpos="top" data-icon="info">
+                        Solicitar Taxi:</a></li>
+                    <li><a href="#confirm" data-iconpos="top" data-icon="check">Confirmación</a></li>
+                </ul>
+            </div>
+            <fieldset>
+                <div data-role="fieldcontain">
+                    <label for="DireccionOrigen">
+                        ¿Dónde se encuentra?:</label>
+                    <textarea cols="40" rows="8" name="DireccionOrigen" id="DireccionOrigen"></textarea>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="Zona">
+                        Zona:</label>
+                    <select name="IdZonaOrigen" id="IdZonaOrigen" data-native-menu="false">
+                        <option>Seleccione:</option>
+                        @foreach (var item in ViewBag.Zonas)
+                        {
+
+                            <option value="@item.Id">@item.Zona1</option>
+                        }
+                    </select>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="DireccionOrigen">
+                        ¿A donde se dirige?:</label>
+                    <textarea cols="40" rows="8" name="DireccionDestino" id="DireccionDestino"></textarea>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="Zona">
+                        Zona:</label>
+                    <select name="IdZonaDestino" id="IdZonaDestino" data-native-menu="false">
+                        <option>Seleccione:</option>
+                        @foreach (var item in ViewBag.Zonas)
+                        {
+
+                            <option value="@item.Id">@item.Zona1</option>
+                        }
+                    </select>
+                </div>
+            </fieldset>
+            <div data-role="controlgroup">
+                <a href="#confirm" data-role="button" data-icon="arrow-r" data-theme="b">Siguiente</a>
+                <a href="@Url.Action("Index", "Cliente")" data-role="button" data-icon="forward">Volver</a>
+            </div>
+        </div>
+        <div data-role="footer" data-theme="d">
+            @Html.Partial("PartialFooter")
+        </div>
+    </div>
+    <div data-role="page" id="confirm">
+        <div data-role="header">
+            @Html.Partial("PartialHeader")
+        </div>
+        <!-- /header -->
+        <div data-role="content">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#start" data-iconpos="top" data-icon="info">Su Información</a></li>
+                    <li><a href="#confirm" class="ui-btn-active ui-state-persist" data-iconpos="top"
+                        data-icon="check">Disponibilidad</a></li>
+                </ul>
+            </div>
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <div class="ui-bar ui-bar-e" style="height: 220px">
+                        <h3>
+                            Ubicación de búsqueda
+                        </h3>
+                        <ul>
+                            <li><b>Dirección: </b><span id="direccionO"></span></li>
+                            <li><b>Zona: </b><span id="zonaupO"></span></li>
+                            <li><b>Teléfono: </b>@ViewBag.Usuario.TelefonoMovil </li>
+                        </ul>
+                        <h3>
+                            Ubicación de destino
+                        </h3>
+                        <ul>
+                            <li><b>Dirección: </b><span id="direccionD"></span></li>
+                            <li><b>Zona: </b><span id="zonaupD"></span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ui-block-b">
+                    <div class="ui-bar ui-bar-e" style="height: 220px">
+                        <h2>
+                            Unidad Disponible:</h2>
+                        <ul>
+                            <li><b>Conductor: </b>@Model.Avances.First().Nombre </li>
+                            <li><b>Vehículo: </b>@Html.DisplayFor(modelItem => Model.Marca) @Html.DisplayFor(modelItem => Model.Modelo)
+                            </li>
+                            <li><b>Placas:</b> @Html.DisplayFor(modelItem => Model.Placa) </li>
+                        </ul>
+                        <input type="hidden" name="idTaxi" value="@Model.Id" />
+                    </div>
+                </div>
+            </div>
+            <div data-role="controlgroup">
+                <fieldset class="ui-grid-a">
+                    <button type="submit" data-icon="check" data-theme="b" name="submit" value="submit-value">
+                        Confirmar</button>
+                    <button type="button" data-icon="forward" name="submit" value="submit-value" onclick="javascript:history.back(1);">
+                        Atras</button>
+                </fieldset>
+            </div>
+        </div>
+        <div data-role="footer" data-theme="d">
+            @Html.Partial("PartialFooter")
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(window).load(function () {
+        $(document).bind("pageshow", function (event, data) {
+            var __dirO = $("#DireccionOrigen").val();
+            var __zonaO = $("#IdZonaOrigen option:selected").html();
+            var __dirD = $("#DireccionDestino").val();
+            var __zonaD = $("#IdZonaDestino option:selected").html();
+
+            if (__dirO == "")
+                __dirO = "No se ha indicado."
+            if (__dirD == "")
+                __dirD = "No se ha indicado."
+
+            if (__zonaO == "Seleccione:")
+                __zonaO = "No se ha seleccionado."
+            if (__zonaD == "Seleccione:")
+                __zonaD = "No se ha seleccionado."
+
+            $("#direccionO").html(__dirO);
+            $("#zonaupO").html(__zonaO);
+            $("#direccionD").html(__dirD);
+            $("#zonaupD").html(__zonaD);
+
+        });
+    });
+   
+</script>

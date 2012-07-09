@@ -1,0 +1,42 @@
+﻿@model List<TaxiSystems.Controllers.Unidad>
+@{
+    ViewBag.Title = "Unidades";
+}
+<div data-role="page" id="start">
+    <div data-role="header">
+        @Html.Partial("PartialHeader")
+    </div>
+    <div data-role="content">
+        <h2>
+            Unidades</h2>
+        <a href="@Url.Action("EditUnidades", "Cliente")" data-role="button" data-icon="add">
+            Nuevo</a>
+        <br />
+        <ul data-role="listview" data-filter="true">
+            @foreach (var item in Model)
+            {
+                
+                <li>
+                    <h2>
+                        @item.Placa</h2>
+                    <h3>
+                        @item.Marca @item.Modelo
+                    </h3>
+                    <p>@item.Año</p>
+                    <p>
+                        <strong>Avance: @(item.Avances.Count > 0 ? item.Avances.FirstOrDefault().Nombre : "Sin Asignar")</strong></p>
+                    <p class="ui-li-aside">
+                    </p>
+                </li>
+            }
+        </ul>
+        <br />
+        <br />
+        <div data-role="controlgroup">
+            <a href="@Url.Action("Index", "Cliente")" data-role="button" data-icon="forward">Volver</a>
+        </div>
+    </div>
+    <div data-role="footer" data-theme="d">
+        @Html.Partial("PartialFooter")
+    </div>
+</div>
